@@ -1,0 +1,136 @@
+[gd_scene load_steps=20 format=3 uid="uid://d1yblgtoup03i"]
+
+[ext_resource type="Script" path="res://script/main_game.gd" id="1_bnd6q"]
+[ext_resource type="Script" path="res://script/GameManager.gd" id="1_rhdva"]
+[ext_resource type="FontFile" uid="uid://bqyp0tisxj51v" path="res://assets/fonts/PixelOperator8.ttf" id="2_wyqno"]
+[ext_resource type="PackedScene" uid="uid://cw7pqjd6mes8o" path="res://scenes/player.tscn" id="3_p1smx"]
+[ext_resource type="Texture2D" uid="uid://b1gn3i42uy7eh" path="res://assets/sprites/cave.png" id="4_6s4yo"]
+[ext_resource type="PackedScene" uid="uid://eupjqpnhvma" path="res://scenes/gem.tscn" id="5_kpho0"]
+[ext_resource type="PackedScene" uid="uid://diryoc4fo2i6g" path="res://scenes/bat.tscn" id="6_8hvm4"]
+[ext_resource type="Script" path="res://script/TextureRect.gd" id="6_ps3et"]
+[ext_resource type="PackedScene" uid="uid://ckhk207fn7h7o" path="res://scenes/snow_bat.tscn" id="7_lpxnf"]
+[ext_resource type="PackedScene" uid="uid://cuehqfraec138" path="res://scenes/killer_bat.tscn" id="8_ib16p"]
+[ext_resource type="PackedScene" uid="uid://dfx2rljqsasr8" path="res://scenes/bat2.tscn" id="9_kp46h"]
+[ext_resource type="AudioStream" uid="uid://cejsow3p2gu7q" path="res://assets/music/Mine!.mp3" id="10_h1def"]
+[ext_resource type="PackedScene" uid="uid://c6hy8cws2lhm8" path="res://scenes/hearts_container.tscn" id="11_351j8"]
+[ext_resource type="PackedScene" uid="uid://cpbruc5iq5ofi" path="res://scenes/fall_bat.tscn" id="12_l0vdt"]
+[ext_resource type="PackedScene" uid="uid://bmi2u0bvmv3y6" path="res://scenes/fall_bat2.tscn" id="13_866vn"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_46xdq"]
+normal = Vector2(1, 0)
+distance = -193.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_nyp5q"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6e48d"]
+distance = -110.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xcadi"]
+normal = Vector2(-1, 0)
+distance = -193.0
+
+[node name="mainGame" type="Node2D"]
+script = ExtResource("1_bnd6q")
+
+[node name="GameManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_rhdva")
+
+[node name="ScoreLabel" type="Label" parent="GameManager"]
+z_index = -1
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 39.0
+offset_bottom = 13.0
+scale = Vector2(0.804348, 0.770116)
+theme_override_fonts/font = ExtResource("2_wyqno")
+text = "0
+"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Advice" type="Label" parent="GameManager"]
+offset_left = -134.0
+offset_top = 93.0
+offset_right = 6.0
+offset_bottom = 109.0
+theme_override_fonts/font = ExtResource("2_wyqno")
+theme_override_font_sizes/font_size = 8
+text = "
+"
+
+[node name="border" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="border"]
+position = Vector2(4, -2)
+shape = SubResource("WorldBoundaryShape2D_46xdq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="border"]
+position = Vector2(-1, -104)
+shape = SubResource("WorldBoundaryShape2D_nyp5q")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="border"]
+position = Vector2(-1, -1)
+shape = SubResource("WorldBoundaryShape2D_6e48d")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="border"]
+position = Vector2(-3, -1)
+shape = SubResource("WorldBoundaryShape2D_xcadi")
+
+[node name="player" parent="." instance=ExtResource("3_p1smx")]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -99
+offset_left = -192.0
+offset_top = -124.0
+offset_right = 279.0
+offset_bottom = 237.0
+scale = Vector2(0.818812, 0.649018)
+texture = ExtResource("4_6s4yo")
+script = ExtResource("6_ps3et")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[node name="Gem" parent="." instance=ExtResource("5_kpho0")]
+position = Vector2(129, -1)
+
+[node name="bats" type="Node" parent="."]
+
+[node name="snow_bat" parent="bats" instance=ExtResource("7_lpxnf")]
+position = Vector2(-208, 0)
+
+[node name="killer_bat" parent="bats" instance=ExtResource("8_ib16p")]
+position = Vector2(203, 40)
+
+[node name="bat2" parent="bats" instance=ExtResource("9_kp46h")]
+position = Vector2(200, 1)
+
+[node name="bat" parent="bats" instance=ExtResource("6_8hvm4")]
+position = Vector2(-204, -64)
+
+[node name="fall_bat" parent="bats" instance=ExtResource("12_l0vdt")]
+position = Vector2(199, -85)
+
+[node name="fall_bat2" parent="bats" instance=ExtResource("13_866vn")]
+position = Vector2(-209, -85)
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_h1def")
+volume_db = -9.428
+autoplay = true
+
+[node name="heartsContainer" parent="." instance=ExtResource("11_351j8")]
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -184.0
+offset_top = 89.0
+offset_right = -129.0
+offset_bottom = 129.0
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.699653, 0.699654, 0.699653, 1)

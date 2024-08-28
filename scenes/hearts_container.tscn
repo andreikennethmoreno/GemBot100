@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6hy8cws2lhm8"]
+
+[ext_resource type="Script" path="res://script/hearts_container.gd" id="1_7bm06"]
+
+[node name="heartsContainer" type="HBoxContainer"]
+anchors_preset = -1
+anchor_left = 0.024
+anchor_top = 0.014
+anchor_right = 0.024
+anchor_bottom = 0.014
+offset_left = -27.648
+offset_top = -9.072
+offset_right = -27.648
+offset_bottom = -9.072
+theme_override_constants/separation = -1
+script = ExtResource("1_7bm06")

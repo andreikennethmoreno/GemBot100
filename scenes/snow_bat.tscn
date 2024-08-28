@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://ckhk207fn7h7o"]
+
+[ext_resource type="Script" path="res://script/snow_bat.gd" id="1_xp5u7"]
+[ext_resource type="Texture2D" uid="uid://di0t60j6364y1" path="res://assets/sprites/GembotIllust.png" id="2_gl1jq"]
+[ext_resource type="PackedScene" uid="uid://bx4gjfgashjig" path="res://scenes/killzone.tscn" id="3_mlht7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rbjww"]
+atlas = ExtResource("2_gl1jq")
+region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m2net"]
+atlas = ExtResource("2_gl1jq")
+region = Rect2(128, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_amlud"]
+atlas = ExtResource("2_gl1jq")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8hn5"]
+atlas = ExtResource("2_gl1jq")
+region = Rect2(128, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tgvoy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rbjww")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m2net")
+}],
+"loop": true,
+"name": &"gem_snow_bat",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_amlud")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8hn5")
+}],
+"loop": true,
+"name": &"idle_snow_bat",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dsm7d"]
+size = Vector2(22, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s5bnk"]
+size = Vector2(27.5, 18)
+
+[node name="snow_bat" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_xp5u7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_tgvoy")
+animation = &"idle_snow_bat"
+autoplay = "idle_snow_bat"
+
+[node name="Killzone" parent="." instance=ExtResource("3_mlht7")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_dsm7d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_s5bnk")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.065
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

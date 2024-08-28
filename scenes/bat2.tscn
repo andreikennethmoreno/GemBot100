@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://dfx2rljqsasr8"]
+
+[ext_resource type="Script" path="res://script/bat2.gd" id="1_sve61"]
+[ext_resource type="Texture2D" uid="uid://di0t60j6364y1" path="res://assets/sprites/GembotIllust.png" id="2_60da1"]
+[ext_resource type="PackedScene" uid="uid://bx4gjfgashjig" path="res://scenes/killzone.tscn" id="3_d4ik2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_urh12"]
+atlas = ExtResource("2_60da1")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjq8e"]
+atlas = ExtResource("2_60da1")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i102g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_urh12")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjq8e")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ijfpy"]
+size = Vector2(20, 12)
+
+[node name="bat2" type="Node2D"]
+script = ExtResource("1_sve61")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_i102g")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Killzone" parent="." instance=ExtResource("3_d4ik2")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(2, 0)
+shape = SubResource("RectangleShape2D_ijfpy")

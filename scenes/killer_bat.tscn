@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://cuehqfraec138"]
+
+[ext_resource type="Texture2D" uid="uid://di0t60j6364y1" path="res://assets/sprites/GembotIllust.png" id="1_1ar5e"]
+[ext_resource type="Script" path="res://script/killer_bat.gd" id="1_qnctv"]
+[ext_resource type="PackedScene" uid="uid://bx4gjfgashjig" path="res://scenes/killzone.tscn" id="3_knj7w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqebo"]
+atlas = ExtResource("1_1ar5e")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wld2l"]
+atlas = ExtResource("1_1ar5e")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qil1j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mqebo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wld2l")
+}],
+"loop": true,
+"name": &"Idle_bat",
+"speed": 3.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y7a67"]
+radius = 11.0454
+
+[node name="killer_bat" type="CharacterBody2D"]
+script = ExtResource("1_qnctv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 1.57646
+sprite_frames = SubResource("SpriteFrames_qil1j")
+animation = &"Idle_bat"
+autoplay = "Idle_bat"
+frame_progress = 0.769162
+
+[node name="Killzone" parent="." instance=ExtResource("3_knj7w")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+shape = SubResource("CircleShape2D_y7a67")

@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://eupjqpnhvma"]
+
+[ext_resource type="Script" path="res://script/Gem.gd" id="1_egi7y"]
+[ext_resource type="Texture2D" uid="uid://di0t60j6364y1" path="res://assets/sprites/GembotIllust.png" id="1_j5jjw"]
+[ext_resource type="AudioStream" uid="uid://se6w16grg5cy" path="res://assets/sound/coin.wav" id="3_gesim"]
+[ext_resource type="Texture2D" uid="uid://dcenixipuuko8" path="res://assets/sprites/lights.png" id="4_rp6xi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j77pu"]
+atlas = ExtResource("1_j5jjw")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b6gcf"]
+atlas = ExtResource("1_j5jjw")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7rof5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j77pu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6gcf")
+}],
+"loop": true,
+"name": &"gem_idle",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eiva2"]
+size = Vector2(5.95539, 6.82154)
+
+[node name="gem" type="Area2D"]
+collision_mask = 6
+script = ExtResource("1_egi7y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7rof5")
+animation = &"gem_idle"
+autoplay = "gem_idle"
+frame_progress = 0.978234
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -0.5)
+rotation = 0.828369
+shape = SubResource("RectangleShape2D_eiva2")
+
+[node name="gem_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_gesim")
+volume_db = -8.288
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0.933333, 1, 1)
+energy = 0.8
+texture = ExtResource("4_rp6xi")
+texture_scale = 0.3
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
